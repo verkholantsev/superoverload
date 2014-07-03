@@ -14,6 +14,10 @@
   ],
   "author": "Aleksey Verkholantsev",
   "license": "ISC",
+  "repository": {
+      "type": "git",
+      "url": "git://github.com/verkholantsev/overload.js.git"
+  },
   "devDependencies": {
     "mocha": "^1.20.1",
     "must": "^0.12.0",
