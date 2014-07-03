@@ -1,5 +1,5 @@
 {
-  "name": "overload.js",
+  "name": "overload",
   "version": "0.1.0",
   "description": "Function overload for JavaScript",
   "main": "index.js",
