@@ -1,0 +1,20 @@
+{
+  "name": "overload.js",
+  "version": "0.1.0",
+  "description": "Function overload for JavaScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test/*.js -R spec"
+  },
+  "keywords": [
+    "function",
+    "overload",
+    "javascript"
+  ],
+  "author": "Aleksey Verkholantsev",
+  "license": "ISC",
+  "devDependencies": {
+    "mocha": "^1.20.1",
+    "must": "^0.12.0"
+  }
+}
