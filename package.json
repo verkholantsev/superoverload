@@ -4,7 +4,8 @@
   "description": "Function overload for JavaScript",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test/*.js -R spec"
+    "test": "mocha test/*.js -R spec",
+    "dist": "browserify index.js --standalone overload > dist/overload.js"
   },
   "keywords": [
     "function",
@@ -15,6 +16,7 @@
   "license": "ISC",
   "devDependencies": {
     "mocha": "^1.20.1",
-    "must": "^0.12.0"
+    "must": "^0.12.0",
+    "browserify": "^4.2.0"
   }
 }
