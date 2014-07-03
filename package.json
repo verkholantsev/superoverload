@@ -1,11 +1,11 @@
 {
-  "name": "overload",
+  "name": "superoverload",
   "version": "0.1.0",
   "description": "Function overload for JavaScript",
   "main": "index.js",
   "scripts": {
     "test": "mocha test/*.js -R spec",
-    "dist": "browserify index.js --standalone overload > dist/overload.js"
+    "dist": "browserify index.js --standalone superoverload > dist/overload.js"
   },
   "keywords": [
     "function",
@@ -16,7 +16,7 @@
   "license": "ISC",
   "repository": {
       "type": "git",
-      "url": "git://github.com/verkholantsev/overload.js.git"
+      "url": "git://github.com/verkholantsev/superoverload.git"
   },
   "devDependencies": {
     "mocha": "^1.20.1",
