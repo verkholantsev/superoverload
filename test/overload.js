@@ -1,7 +1,7 @@
 'use strict';
 
 var expect = require('must');
-var overload = require('../lib/overload').overload;
+var overload = require('../lib/overload');
 
 describe('overload', function () {
     it('должен возвращать функцию', function () {
