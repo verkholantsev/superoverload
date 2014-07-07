@@ -1,11 +1,11 @@
 {
   "name": "superoverload",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Function overload for JavaScript",
   "main": "index.js",
   "scripts": {
     "test": "mocha test/*.js -R spec",
-    "dist": "browserify index.js --standalone superoverload > dist/overload.js"
+    "dist": "browserify index.js --standalone superoverload > dist/superoverload.js"
   },
   "keywords": [
     "function",

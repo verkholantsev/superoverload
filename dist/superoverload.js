@@ -1,8 +1,29 @@
+!function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var o;"undefined"!=typeof window?o=window:"undefined"!=typeof global?o=global:"undefined"!=typeof self&&(o=self),o.superoverload=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
+'use strict';
+
+module.exports = _dereq_('./lib/overload');
+
+},{"./lib/overload":3}],2:[function(_dereq_,module,exports){
+'use strict';
+
+module.exports = getType;
+
+/**
+ * Возвращает нормализованный тип объекта
+ *
+ * @param {*} arg
+ * @return {string}
+ */
+function getType(arg) {
+    return ({}).toString.call(arg).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
+}
+
+},{}],3:[function(_dereq_,module,exports){
 'use strict';
 
 
-var getType = require('./getType');
-var pair = require('./pair');
+var getType = _dereq_('./getType');
+var pair = _dereq_('./pair');
 module.exports = overload;
 
 function toArray(obj) {
@@ -69,3 +90,27 @@ function overload() {
         return fn.apply(this, arguments);
     };
 }
+
+},{"./getType":2,"./pair":4}],4:[function(_dereq_,module,exports){
+'use strict';
+
+module.exports = pair;
+
+/**
+ * Разбивает массив по парам [0, 1, 2, 3] => [[0, 1], [2, 3]]
+ *
+ * @param {array} array
+ * @return {array}
+ */
+function pair(array) {
+    return array.reduce(function (result, element, i) {
+        i = parseInt(i / 2, 10);
+        result[i] = result[i] || [];
+        result[i].push(element);
+        return result;
+    }, []);
+}
+
+},{}]},{},[1])
+(1)
+});
