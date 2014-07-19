@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha test/*.js -R spec",
+    "benchmark": "mocha benchmark/*.js -R spec",
     "dist": "browserify index.js --standalone superoverload > dist/superoverload.js"
   },
   "keywords": [
