@@ -1,0 +1,11 @@
+{
+    "node": true,
+    "predef": [
+        "describe",
+        "it",
+        "beforeEach",
+        "before",
+        "afterEach",
+        "after"
+    ]
+}
