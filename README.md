@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/verkholantsev/superoverload.svg?branch=master)](https://travis-ci.org/verkholantsev/superoverload)
+
 #Superoverload
 
 _Superoverload_ is a function overload for JavaScript.
