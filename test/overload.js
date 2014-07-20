@@ -73,5 +73,21 @@ describe('overload()', function () {
 
         });
     });
+
+    describe('called with complicated signature', function () {
+        var fn;
+        beforeEach(function () {
+            fn = overload(
+                ['number', 'string', 'array', 'object', 'function', 'regexp', 'date'],
+                function () {
+                    return 'ok';
+                }
+            );
+        });
+
+        it('should return working overloaded function', function () {
+            expect(fn(1, '', [], {}, function () {}, /1/, new Date())).to.be.eql('ok');
+        });
+    });
 });
 

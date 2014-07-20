@@ -30,6 +30,10 @@ describe('getType(arg)', function () {
         it('\'date\' for date', function () {
             expect(getType(new Date())).to.be.eql('date');
         });
+
+        it('\'function\' for function', function () {
+            expect(getType(function () {})).to.be.eql('function');
+        });
     });
 });
 
