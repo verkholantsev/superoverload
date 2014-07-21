@@ -39,9 +39,9 @@ fn(1); // => 'It is a number'
 fn(''); // => 'It is something else'
 ```
 
-##Optional arguments
+##Optional parameters
 
-Superoverload can be used to declare optional arguments.
+Superoverload can be used to declare optional parameters.
 
 ```javascript
 function getFullUrl(protocol, host, port, path) {
