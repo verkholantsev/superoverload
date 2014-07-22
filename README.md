@@ -1,3 +1,4 @@
+[![NPM version](https://badge.fury.io/js/superoverload.svg)](http://badge.fury.io/js/superoverload)
 [![Build Status](https://travis-ci.org/verkholantsev/superoverload.svg?branch=master)](https://travis-ci.org/verkholantsev/superoverload)
 
 #Superoverload
