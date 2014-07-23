@@ -1,6 +1,6 @@
 {
   "name": "superoverload",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Function overload for JavaScript",
   "main": "index.js",
   "scripts": {
@@ -13,7 +13,10 @@
     "overload",
     "javascript"
   ],
-  "author": "Aleksey Verkholantsev",
+  "author": "Aleksey Verkholantsev <poshli.pismo@gmail.com> (https://github.com/verkholantsev)",
+  "contributors": [
+    "escaton (https://github.com/escaton)"
+  ],
   "license": "ISC",
   "repository": {
       "type": "git",
