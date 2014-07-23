@@ -8,32 +8,43 @@ module.exports = _dereq_('./lib/overload');
 
 module.exports = getType;
 
+var TYPE_REGEX = /\s([a-zA-Z]+)/;
+
 /**
- * Возвращает нормализованный тип объекта
+ * Returns normalized type of `arg`
  *
  * @param {*} arg
  * @return {string}
  */
 function getType(arg) {
-    return ({}).toString.call(arg).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
+    return Object.prototype.toString.call(arg).match(TYPE_REGEX)[1].toLowerCase();
 }
 
 },{}],3:[function(_dereq_,module,exports){
 'use strict';
 
-
 var getType = _dereq_('./getType');
 var pair = _dereq_('./pair');
+
 module.exports = overload;
 
-function toArray(obj) {
-    return Array.prototype.slice.call(obj, 0);
+/**
+ *
+ * @param {array} array
+ * @return {string}
+ */
+function serializeSignature(array) {
+    return array
+        .map(function(arg, index) {
+            return '_' + index;
+        })
+        .join(',');
 }
 
 /**
- * Реализация перегрузки функций
+ * Function overload implementation
  *
- * В качестве аргументов принимает сигнатуры и функции, например так:
+ * Takes signatures and functions as arguments, like this:
  *
  * var fn = overload(
  *     ['number'],
@@ -46,11 +57,9 @@ function toArray(obj) {
  * fn(1); // => 'It is a number'
  * fn(''); // => 'It is a string'
  *
- * Возвращает функцию, которая при вызове ее с какими-либо аргументами,
- * вызовет функцию с подходящей сигнатурой
+ * Returns an overloaded function, that will call the function with corresponding signature
  *
- * Первым аргументом можно передать функцию, которая будет вызвана,
- * если ни одна из сигнатур на подойдет под текущий вызов, например так:
+ * Fallback function can be passed as a first argument, like this:
  *
  * var fn = overload(
  *     function (a) { return 'It is something else'; },
@@ -65,30 +74,64 @@ function toArray(obj) {
  * @return {function}
  */
 function overload() {
-    var args = toArray(arguments);
-    if (args.length % 2 > 0) {
-        var defaultFn = args.shift();
+    var args = new Array(arguments.length);
+
+    for(var i = 0, len = args.length; i < len; i++) {
+        args[i] = arguments[i];
     }
+
+    var defaultFn = args.length % 2 > 0 ? args.shift() : null;
     var pairs = pair(args);
-    return function () {
-        var args = toArray(arguments);
-        var pair = pairs.filter(function (pair) {
+    var fns = new Array(pairs.length);
+    var longestSignature = [];
+
+    var ifs = pairs
+        .map(function(pair, index) {
+            var sample = 'if (hashKey === "%signature%") { return fns[%index%].call(this, %args%); }';
             var signature = pair[0];
-            return args.length === signature.length && args.every(function (arg, index) {
-                return getType(arg) === signature[index];
-            });
-        })[0];
-        if (!pair) {
-            if (!defaultFn) {
-                var description = args.map(getType).join(', ');
-                throw new Error('No matching function for call with signature "' + description + '"');
+            var fn = pair[1];
+            var hashKey = signature.join(', ');
+
+            fns[index] = fn;
+            if (signature.length > longestSignature.length) {
+                longestSignature = signature;
             }
 
-            return defaultFn.apply(this, arguments);
-        }
-        var fn = pair[1];
-        return fn.apply(this, arguments);
-    };
+            return sample
+                .replace('%signature%', hashKey)
+                .replace('%index%', index)
+                .replace('%args%', serializeSignature(signature));
+        })
+        .join(' else ');
+
+    var serializedSignature = serializeSignature(longestSignature);
+    var code = [
+            'return function(' + serializedSignature + ') {',
+                'var hashKey = "";',
+                'for (var i = 0, len = arguments.length; i < len; i++) {',
+                    'hashKey += getType(arguments[i]);',
+                    'if (i !== len - 1) {',
+                        'hashKey += ", ";',
+                    '}',
+                '}',
+                ifs,
+
+                pairs.length > 0 ? ' else { ' : '',
+
+                'if (!defaultFn) {',
+                    'throw new Error(\'No matching function for call with signature "\' + hashKey + \'"\');',
+                '}',
+
+                pairs.length > 0 ? '}' : '',
+                'return defaultFn.call(this, ' + (serializedSignature || 'null') + ');',
+            '}'
+        ];
+
+    /* jshint evil: true */
+    var superFunc = new Function('getType, fns, defaultFn', code.join(''));
+    /* jshint evil: false */
+
+    return superFunc(getType, fns, defaultFn);
 }
 
 },{"./getType":2,"./pair":4}],4:[function(_dereq_,module,exports){
@@ -97,7 +140,7 @@ function overload() {
 module.exports = pair;
 
 /**
- * Разбивает массив по парам [0, 1, 2, 3] => [[0, 1], [2, 3]]
+ * Transforms array into array of pairs [0, 1, 2, 3] => [[0, 1], [2, 3]]
  *
  * @param {array} array
  * @return {array}
