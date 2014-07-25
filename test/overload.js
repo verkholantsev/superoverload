@@ -69,6 +69,20 @@ describe('overload()', function () {
                 it('if there is no function with corresponding signature', function () {
                     expect(fn(true)).to.be.eql('default');
                 });
+
+                describe('with', function () {
+                    beforeEach(function () {
+                        fn = overload(
+                            function (arg) {
+                                return arg;
+                            }
+                        );
+                    });
+
+                    it('all passed arguments', function () {
+                        expect(fn(true)).to.be.eql(true);
+                    });
+                });
             });
 
         });
