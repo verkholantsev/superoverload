@@ -23,6 +23,10 @@ describe('getType(arg)', function () {
             expect(getType(null)).to.be.eql('null');
         });
 
+        it('\'undefined\' for undefined', function () {
+            expect(getType(undefined)).to.be.eql('undefined');
+        });
+
         it('\'regexp\' for regexp', function () {
             expect(getType(/a/)).to.be.eql('regexp');
         });
