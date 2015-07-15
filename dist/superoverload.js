@@ -123,7 +123,7 @@ function overload() {
                 '}',
 
                 pairs.length > 0 ? '}' : '',
-                'return defaultFn.call(this, ' + (serializedSignature || 'null') + ');',
+                'return defaultFn.apply(this, arguments);',
             '}'
         ];
 
