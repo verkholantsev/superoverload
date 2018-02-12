@@ -14,5 +14,7 @@ export default function getType(arg) {
     } else if (arg === void 0) {
         return 'undefined';
     }
-    return Object.prototype.toString.call(arg).match(TYPE_REGEX)[1].toLowerCase();
+    return Object.prototype.toString.call(arg)
+        .match(TYPE_REGEX)[1]
+        .toLowerCase();
 }

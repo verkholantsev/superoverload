@@ -1,38 +1,36 @@
 {
-  "name": "superoverload",
-  "version": "0.1.3",
-  "description": "Function overload for JavaScript",
-  "main": "dist/index.js",
-  "scripts": {
-    "test": "mocha test/*.js -R spec --require babel-core/register",
-    "benchmark": "mocha benchmark/*.js -R spec --require babel-core/register",
-    "dist": "rollup -c"
-  },
-  "keywords": [
-    "function",
-    "overload",
-    "javascript"
-  ],
-  "author": "Aleksey Verkholantsev <poshli.pismo@gmail.com> (https://github.com/verkholantsev)",
-  "contributors": [
-    "escaton (https://github.com/escaton)"
-  ],
-  "license": "ISC",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/verkholantsev/superoverload.git"
-  },
-  "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-plugin-external-helpers": "^6.22.0",
-    "babel-preset-env": "^1.6.1",
-    "babelrc-rollup": "^3.0.0",
-    "mocha": "^5.0.0",
-    "must": "^0.13.4",
-    "rollup": "^0.55.5",
-    "rollup-plugin-babel": "^3.0.3",
-    "rollup-plugin-commonjs": "^8.3.0",
-    "rollup-plugin-node-resolve": "^3.0.2"
-  },
-  "dependencies": {}
+    "name": "superoverload",
+    "version": "0.1.3",
+    "description": "Function overload for JavaScript",
+    "main": "dist/index.js",
+    "scripts": {
+        "test": "mocha test/*.js -R spec --require babel-core/register",
+        "benchmark": "mocha benchmark/*.js -R spec --require babel-core/register",
+        "dist": "rollup -c && prettier dist/index.js --write",
+        "format": "eslint --fix . && prettier --write **/*.{md,json,js}"
+    },
+    "keywords": ["function", "overload", "javascript"],
+    "author": "Aleksey Verkholantsev <poshli.pismo@gmail.com> (https://github.com/verkholantsev)",
+    "contributors": ["escaton (https://github.com/escaton)"],
+    "license": "ISC",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/verkholantsev/superoverload.git"
+    },
+    "devDependencies": {
+        "babel-core": "^6.26.0",
+        "babel-plugin-external-helpers": "^6.22.0",
+        "babel-preset-env": "^1.6.1",
+        "babelrc-rollup": "^3.0.0",
+        "eslint": "^4.17.0",
+        "eslint-config-prettier": "^2.9.0",
+        "mocha": "^5.0.0",
+        "must": "^0.13.4",
+        "prettier": "^1.10.2",
+        "rollup": "^0.55.5",
+        "rollup-plugin-babel": "^3.0.3",
+        "rollup-plugin-commonjs": "^8.3.0",
+        "rollup-plugin-node-resolve": "^3.0.2"
+    },
+    "dependencies": {}
 }

@@ -1,6 +1,6 @@
 'use strict';
 
-import expect from 'must'
+import expect from 'must';
 import overload from '../src/lib/overload';
 
 describe('overload()', () => {
@@ -72,11 +72,9 @@ describe('overload()', () => {
 
                 describe('with', () => {
                     beforeEach(() => {
-                        fn = overload(
-                            function (arg) {
-                                return arg;
-                            }
-                        );
+                        fn = overload(function(arg) {
+                            return arg;
+                        });
                     });
 
                     it('all passed arguments', () => {
@@ -84,19 +82,15 @@ describe('overload()', () => {
                     });
                 });
             });
-
         });
     });
 
     describe('called with complicated signature', () => {
         var fn;
         beforeEach(() => {
-            fn = overload(
-                ['number', 'string', 'array', 'object', 'function', 'regexp', 'date'],
-                () => {
-                    return 'ok';
-                }
-            );
+            fn = overload(['number', 'string', 'array', 'object', 'function', 'regexp', 'date'], () => {
+                return 'ok';
+            });
         });
 
         it('should return working overloaded function', () => {
@@ -104,4 +98,3 @@ describe('overload()', () => {
         });
     });
 });
-

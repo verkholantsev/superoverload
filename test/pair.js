@@ -8,4 +8,3 @@ describe('pair()', () => {
         expect(pair([0, 1, 2, 3])).to.be.eql([[0, 1], [2, 3]]);
     });
 });
-

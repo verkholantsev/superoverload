@@ -74,31 +74,25 @@ export default function overload(...args) {
         .join(' else ');
 
     const serializedSignature = serializeSignature(longestSignature);
-    const code = [
-            'return function(' + serializedSignature + ') {',
-                'var hashKey = "";',
-                'for (var i = 0, len = arguments.length; i < len; i++) {',
-                    'hashKey += getType(arguments[i]);',
-                    'if (i !== len - 1) {',
-                        'hashKey += ", ";',
-                    '}',
-                '}',
-                ifs,
+    const code =
+`return function(${serializedSignature}) {
+    var hashKey = '';
+    for (var i = 0, len = arguments.length; i < len; i++) {
+        hashKey += getType(arguments[i]);
+        if (i !== len - 1) {
+            hashKey += ", ";
+        }
+    }
+    ${ifs}
+    ${pairs.length > 0 ? 'else {' : ''}
+    if (!defaultFn) {
+        throw new Error('No matching function for call with signature "' + hashKey + '"');
+    }
+    ${pairs.length > 0 ? '}' : ''}
+    return defaultFn.apply(this, arguments);
+}`;
 
-                pairs.length > 0 ? ' else { ' : '',
-
-                'if (!defaultFn) {',
-                    'throw new Error(\'No matching function for call with signature "\' + hashKey + \'"\');',
-                '}',
-
-                pairs.length > 0 ? '}' : '',
-                'return defaultFn.apply(this, arguments);',
-            '}'
-        ];
-
-    /* jshint evil: true */
-    const superFunc = new Function('getType, fns, defaultFn', code.join(''));
-    /* jshint evil: false */
+    const superFunc = new Function('getType, fns, defaultFn', code);
 
     return superFunc(getType, fns, defaultFn);
 }
