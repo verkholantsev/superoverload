@@ -3,7 +3,7 @@
 const TYPE_REGEX = /\s([a-zA-Z]+)/;
 
 /**
- * Returns normalized type of `arg`
+ * Returns type of `arg`
  *
  * @param {*} arg
  * @return {string}
