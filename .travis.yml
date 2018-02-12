@@ -8,4 +8,5 @@ node_js:
 script:
   - yarn run lint
   - yarn run flow
+  - yarn test
   - yarn run build
