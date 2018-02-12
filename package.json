@@ -12,7 +12,7 @@
     "keywords": ["function", "overload", "javascript"],
     "author": "Aleksey Verkholantsev <poshli.pismo@gmail.com> (https://github.com/verkholantsev)",
     "contributors": ["escaton (https://github.com/escaton)"],
-    "license": "ISC",
+    "license": "MIT",
     "repository": {
         "type": "git",
         "url": "git://github.com/verkholantsev/superoverload.git"
