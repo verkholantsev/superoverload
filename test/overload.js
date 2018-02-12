@@ -10,18 +10,14 @@ describe('overload()', () => {
 
     describe('called with even number of arguments', () => {
         describe('should return function, which', () => {
-            var fn;
+            let fn;
             beforeEach(() => {
                 fn = overload(
                     ['string'],
-                    () => {
-                        return 'string';
-                    },
+                    () => 'string',
 
                     ['array'],
-                    () => {
-                        return 'array';
-                    }
+                    () => 'array'
                 );
             });
 
@@ -32,8 +28,8 @@ describe('overload()', () => {
 
             describe('throw an exception', () => {
                 it('if there is no function with corresponding signature', () => {
-                    var message = 'No matching function for call with signature "number, number"';
-                    expect(fn.bind(this, 1, 2)).to.throw(message);
+                    const message = 'No matching function for call with signature "number, number"';
+                    expect(() => fn(1, 2)).to.throw(message);
                 });
             });
         });
@@ -41,22 +37,16 @@ describe('overload()', () => {
 
     describe('called with odd number of arguments', () => {
         describe('should return function, which', () => {
-            var fn;
+            let fn;
             beforeEach(() => {
                 fn = overload(
-                    () => {
-                        return 'default';
-                    },
+                    () => 'default',
 
                     ['string'],
-                    () => {
-                        return 'string';
-                    },
+                    () => 'string',
 
                     ['number'],
-                    () => {
-                        return 'number';
-                    }
+                    () => 'number'
                 );
             });
 
@@ -72,9 +62,7 @@ describe('overload()', () => {
 
                 describe('with', () => {
                     beforeEach(() => {
-                        fn = overload(function(arg) {
-                            return arg;
-                        });
+                        fn = overload(arg => arg);
                     });
 
                     it('all passed arguments', () => {
@@ -88,9 +76,7 @@ describe('overload()', () => {
     describe('called with complicated signature', () => {
         var fn;
         beforeEach(() => {
-            fn = overload(['number', 'string', 'array', 'object', 'function', 'regexp', 'date'], () => {
-                return 'ok';
-            });
+            fn = overload(['number', 'string', 'array', 'object', 'function', 'regexp', 'date'], () => 'ok');
         });
 
         it('should return working overloaded function', () => {
