@@ -1,7 +1,7 @@
 'use strict';
 
 import expect from 'must';
-import overload from '../src/lib/overload';
+import overload from '../src/overload';
 
 describe('overload()', () => {
     it('should return a function', () => {

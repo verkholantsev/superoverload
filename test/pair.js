@@ -1,7 +1,7 @@
 'use strict';
 
 import expect from 'must';
-import pair from '../src/lib/pair';
+import pair from '../src/pair';
 
 describe('pair()', () => {
     it('should transform array into array of pairs', () => {

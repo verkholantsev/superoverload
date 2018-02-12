@@ -1,5 +1,5 @@
 'use strict';
 
-import overload from './lib/overload';
+import overload from './overload';
 
 export default overload;
