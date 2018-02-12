@@ -1,11 +1,11 @@
 [![NPM version](https://badge.fury.io/js/superoverload.svg)](http://badge.fury.io/js/superoverload)
 [![Build Status](https://travis-ci.org/verkholantsev/superoverload.svg?branch=master)](https://travis-ci.org/verkholantsev/superoverload)
 
-#Superoverload
+# Superoverload
 
 _Superoverload_ is a function overload for JavaScript.
 
-##Usage
+## Usage
 
 Superoverload expects functions and their signatures as arguments. Like this:
 
@@ -40,7 +40,7 @@ fn(1); // => 'It is a number'
 fn(''); // => 'It is something else'
 ```
 
-##Optional parameters
+## Optional parameters
 
 Superoverload can be used to declare optional parameters.
 
