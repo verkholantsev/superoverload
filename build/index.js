@@ -5,6 +5,8 @@
 })(this, function() {
     'use strict';
 
+    //
+
     var TYPE_REGEX = /\s([a-zA-Z]+)/;
 
     /**
@@ -19,11 +21,17 @@
         } else if (arg === void 0) {
             return 'undefined';
         }
-        return Object.prototype.toString
-            .call(arg)
-            .match(TYPE_REGEX)[1]
-            .toLowerCase();
+
+        var groups = Object.prototype.toString.call(arg).match(TYPE_REGEX);
+
+        if (!Array.isArray(groups)) {
+            throw new Error('Unexpected type of arg ' + String(arg));
+        }
+
+        return groups[1].toLowerCase();
     }
+
+    //
 
     /**
      * Transforms array into array of pairs [0, 1, 2, 3] => [[0, 1], [2, 3]]
@@ -39,6 +47,8 @@
             return result;
         }, []);
     }
+
+    //
 
     /**
      *
@@ -109,7 +119,7 @@
 
                 return sample
                     .replace('%signature%', hashKey)
-                    .replace('%index%', index)
+                    .replace('%index%', String(index))
                     .replace('%args%', serializeSignature(signature));
             })
             .join(' else ');
@@ -128,6 +138,7 @@
 
         var superFunc = new Function('getType, fns, defaultFn', code);
 
+        // $FlowFixMe errors with `new Function(...)`
         return superFunc(getType, fns, defaultFn);
     }
 

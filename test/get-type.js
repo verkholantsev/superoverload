@@ -1,7 +1,7 @@
 'use strict';
 
 import expect from 'must';
-import getType from '../src/getType';
+import getType from '../src/get-type';
 
 describe('getType(arg)', () => {
     describe('should return', () => {

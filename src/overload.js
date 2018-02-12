@@ -1,4 +1,6 @@
-import getType from './getType';
+// @flow
+
+import getType from './get-type';
 import pair from './pair';
 
 /**
@@ -6,7 +8,7 @@ import pair from './pair';
  * @param {array} array
  * @return {string}
  */
-function serializeSignature(array) {
+function serializeSignature(array: Array<*>): string {
     return array
         .map(function(arg, index) {
             return '_' + index;
@@ -46,7 +48,7 @@ function serializeSignature(array) {
  *
  * @return {function}
  */
-export default function overload(...args) {
+export default function overload(...args: Array<*>): Function {
     const defaultFn = args.length % 2 > 0 ? args.shift() : null;
     const pairs = pair(args);
     const fns = new Array(pairs.length);
@@ -66,7 +68,7 @@ export default function overload(...args) {
 
             return sample
                 .replace('%signature%', hashKey)
-                .replace('%index%', index)
+                .replace('%index%', String(index))
                 .replace('%args%', serializeSignature(signature));
         })
         .join(' else ');
@@ -91,5 +93,6 @@ export default function overload(...args) {
 
     const superFunc = new Function('getType, fns, defaultFn', code);
 
+    // $FlowFixMe errors with `new Function(...)`
     return superFunc(getType, fns, defaultFn);
 }

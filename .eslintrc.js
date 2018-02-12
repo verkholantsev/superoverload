@@ -8,6 +8,7 @@ module.exports = {
     "extends": [
         "eslint:recommended",
         "prettier",
+        "plugin:flowtype/recommended"
     ],
     "parserOptions": {
         "sourceType": "module"
@@ -29,6 +30,11 @@ module.exports = {
         "semi": [
             "error",
             "always"
-        ]
-    }
+        ],
+        "prettier/prettier": "error"
+    },
+    "plugins": [
+        "prettier",
+        "flowtype"
+    ]
 };
