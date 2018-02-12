@@ -1,9 +1,7 @@
 'use strict';
 
-var getType = require('./getType');
-var pair = require('./pair');
-
-module.exports = overload;
+import getType from './getType';
+import pair from './pair';
 
 /**
  *
@@ -23,7 +21,7 @@ function serializeSignature(array) {
  *
  * Takes signatures and functions as arguments, like this:
  *
- * var fn = overload(
+ * const fn = overload(
  *     ['number'],
  *     function (a) { return 'It is a number'; },
  *
@@ -38,7 +36,7 @@ function serializeSignature(array) {
  *
  * Fallback function can be passed as a first argument, like this:
  *
- * var fn = overload(
+ * const fn = overload(
  *     function (a) { return 'It is something else'; },
  *
  *     ['number'],
@@ -50,24 +48,18 @@ function serializeSignature(array) {
  *
  * @return {function}
  */
-function overload() {
-    var args = new Array(arguments.length);
+export default function overload(...args) {
+    const defaultFn = args.length % 2 > 0 ? args.shift() : null;
+    const pairs = pair(args);
+    const fns = new Array(pairs.length);
+    let longestSignature = [];
 
-    for(var i = 0, len = args.length; i < len; i++) {
-        args[i] = arguments[i];
-    }
-
-    var defaultFn = args.length % 2 > 0 ? args.shift() : null;
-    var pairs = pair(args);
-    var fns = new Array(pairs.length);
-    var longestSignature = [];
-
-    var ifs = pairs
-        .map(function(pair, index) {
-            var sample = 'if (hashKey === "%signature%") { return fns[%index%].call(this, %args%); }';
-            var signature = pair[0];
-            var fn = pair[1];
-            var hashKey = signature.join(', ');
+    const ifs = pairs
+        .map((pair, index) => {
+            const sample = 'if (hashKey === "%signature%") { return fns[%index%].call(this, %args%); }';
+            const signature = pair[0];
+            const fn = pair[1];
+            const hashKey = signature.join(', ');
 
             fns[index] = fn;
             if (signature.length > longestSignature.length) {
@@ -81,8 +73,8 @@ function overload() {
         })
         .join(' else ');
 
-    var serializedSignature = serializeSignature(longestSignature);
-    var code = [
+    const serializedSignature = serializeSignature(longestSignature);
+    const code = [
             'return function(' + serializedSignature + ') {',
                 'var hashKey = "";',
                 'for (var i = 0, len = arguments.length; i < len; i++) {',
@@ -105,7 +97,7 @@ function overload() {
         ];
 
     /* jshint evil: true */
-    var superFunc = new Function('getType, fns, defaultFn', code.join(''));
+    const superFunc = new Function('getType, fns, defaultFn', code.join(''));
     /* jshint evil: false */
 
     return superFunc(getType, fns, defaultFn);

@@ -1,7 +1,7 @@
 'use strict';
 
-var expect = require('must');
-var overload = require('../');
+import expect from 'must';
+import overload from '../src';
 
 /**
  *

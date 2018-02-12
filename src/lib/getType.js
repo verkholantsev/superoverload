@@ -1,8 +1,6 @@
 'use strict';
 
-module.exports = getType;
-
-var TYPE_REGEX = /\s([a-zA-Z]+)/;
+const TYPE_REGEX = /\s([a-zA-Z]+)/;
 
 /**
  * Returns normalized type of `arg`
@@ -10,7 +8,7 @@ var TYPE_REGEX = /\s([a-zA-Z]+)/;
  * @param {*} arg
  * @return {string}
  */
-function getType(arg) {
+export default function getType(arg) {
     if (arg === null) {
         return 'null';
     } else if (arg === void 0) {
