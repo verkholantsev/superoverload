@@ -1,6 +1,6 @@
 'use strict';
 
-import overload from '../src';
+import overload from '../';
 
 /**
  *
