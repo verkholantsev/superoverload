@@ -51,30 +51,35 @@ function serializeSignature(array: Array<*>): string {
 export default function overload(...args: Array<*>): Function {
     const defaultFn = args.length % 2 > 0 ? args.shift() : null;
     const pairs = pair(args);
+
+    const ifsArray = new Array(pairs.length);
     const fns = new Array(pairs.length);
     let longestSignature = [];
 
-    const ifs = pairs
-        .map((pair, index) => {
-            const sample = 'if (hashKey === "%signature%") { return fns[%index%].call(this, %args%); }';
-            const signature = pair[0];
-            const fn = pair[1];
-            const hashKey = signature.join(', ');
+    for (let i = 0; i < pairs.length; i++) {
+        const pair = pairs[i];
+        const signature = pair[0];
+        const fn = pair[1];
 
-            fns[index] = fn;
-            if (signature.length > longestSignature.length) {
-                longestSignature = signature;
-            }
+        const hashKey = signature.join(', ');
 
-            return sample
-                .replace('%signature%', hashKey)
-                .replace('%index%', String(index))
-                .replace('%args%', serializeSignature(signature));
-        })
-        .join(' else ');
+        fns[i] = fn;
+
+        if (signature.length > longestSignature.length) {
+            longestSignature = signature;
+        }
+
+        ifsArray[i] = `
+if (hashKey === '${hashKey}') {
+    return fns[${String(i)}].call(this, ${serializeSignature(signature)});
+}`;
+    }
+
+    const ifs = ifsArray.join(' else ');
 
     const serializedSignature = serializeSignature(longestSignature);
-    const code = `return function(${serializedSignature}) {
+    const code = `
+return function(${serializedSignature}) {
     var hashKey = '';
     for (var i = 0, len = arguments.length; i < len; i++) {
         hashKey += getType(arguments[i]);

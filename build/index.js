@@ -96,31 +96,39 @@
 
         var defaultFn = args.length % 2 > 0 ? args.shift() : null;
         var pairs = pair(args);
+
+        var ifsArray = new Array(pairs.length);
         var fns = new Array(pairs.length);
         var longestSignature = [];
 
-        var ifs = pairs
-            .map(function(pair$$1, index) {
-                var sample = 'if (hashKey === "%signature%") { return fns[%index%].call(this, %args%); }';
-                var signature = pair$$1[0];
-                var fn = pair$$1[1];
-                var hashKey = signature.join(', ');
+        for (var i = 0; i < pairs.length; i++) {
+            var _pair = pairs[i];
+            var signature = _pair[0];
+            var fn = _pair[1];
 
-                fns[index] = fn;
-                if (signature.length > longestSignature.length) {
-                    longestSignature = signature;
-                }
+            var hashKey = signature.join(', ');
 
-                return sample
-                    .replace('%signature%', hashKey)
-                    .replace('%index%', String(index))
-                    .replace('%args%', serializeSignature(signature));
-            })
-            .join(' else ');
+            fns[i] = fn;
+
+            if (signature.length > longestSignature.length) {
+                longestSignature = signature;
+            }
+
+            ifsArray[i] =
+                "\nif (hashKey === '" +
+                hashKey +
+                "') {\n    return fns[" +
+                String(i) +
+                '].call(this, ' +
+                serializeSignature(signature) +
+                ');\n}';
+        }
+
+        var ifs = ifsArray.join(' else ');
 
         var serializedSignature = serializeSignature(longestSignature);
         var code =
-            'return function(' +
+            '\nreturn function(' +
             serializedSignature +
             ') {\n    var hashKey = \'\';\n    for (var i = 0, len = arguments.length; i < len; i++) {\n        hashKey += getType(arguments[i]);\n        if (i !== len - 1) {\n            hashKey += ", ";\n        }\n    }\n    ' +
             ifs +
