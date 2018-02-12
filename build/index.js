@@ -5,8 +5,6 @@
 })(this, function() {
     'use strict';
 
-    //
-
     var TYPE_REGEX = /\s([a-zA-Z]+)/;
 
     /**
@@ -31,8 +29,6 @@
         return groups[1].toLowerCase();
     }
 
-    //
-
     /**
      * Transforms array into array of pairs [0, 1, 2, 3] => [[0, 1], [2, 3]]
      *
@@ -47,8 +43,6 @@
             return result;
         }, []);
     }
-
-    //
 
     /**
      *
