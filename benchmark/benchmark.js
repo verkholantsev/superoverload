@@ -17,7 +17,8 @@ function addRandom(n) {
  * @return {array}
  */
 function getArray(length) {
-    for (var i = 0, result = []; i < length; i++) result.push(void 0);
+    const result = [];
+    for (let i = 0; i < length; i++) result.push(void 0);
     return result;
 }
 
@@ -27,9 +28,7 @@ function getArray(length) {
  * @return {array}
  */
 function getRandomArray(length) {
-    return getArray(length).map(function() {
-        return Math.random();
-    });
+    return getArray(length).map(() => Math.random());
 }
 
 /**
@@ -41,48 +40,44 @@ function repeat(fn, times) {
     while (times--) fn();
 }
 
-describe('benchmark', function() {
-    var array;
-    var fn;
-    var overloadedFn;
+describe('benchmark', () => {
+    let array;
+    let fn;
+    let overloadedFn;
 
-    var ARRAY_LENGTH = 1;
-    var REPEATS = 1000000;
+    let ARRAY_LENGTH = 1;
+    let REPEATS = 1000000;
 
-    before(function() {
+    before(() => {
         array = getRandomArray(ARRAY_LENGTH);
     });
 
-    describe('simple call', function() {
-        before(function() {
-            fn = Array.prototype.map.bind(array, function(element) {
-                return addRandom(element);
-            });
+    describe('simple call', () => {
+        before(() => {
+            fn = Array.prototype.map.bind(array, element => addRandom(element));
 
-            var overloadedAddRandom = overload(addRandom);
-            overloadedFn = Array.prototype.map.bind(array, function(element) {
-                return overloadedAddRandom(element);
-            });
+            const overloadedAddRandom = overload(addRandom);
+            overloadedFn = Array.prototype.map.bind(array, element => overloadedAddRandom(element));
         });
 
-        it('fn', function() {
+        it('fn', () => {
             repeat(fn, REPEATS);
         });
 
-        it('overloadedFn', function() {
+        it('overloadedFn', () => {
             repeat(overloadedFn, REPEATS);
         });
     });
 
-    describe('overloaded call', function() {
-        before(function() {
-            array = array.map(function(element) {
+    describe('overloaded call', () => {
+        before(() => {
+            array = array.map(element => {
                 if (element < 0.5) return String(element);
 
                 return element;
             });
 
-            fn = Array.prototype.map.bind(array, function(element) {
+            fn = Array.prototype.map.bind(array, element => {
                 if (typeof element === 'string') {
                     return element + element;
                 }
@@ -90,28 +85,22 @@ describe('benchmark', function() {
                 return addRandom(element);
             });
 
-            var overloadConcatOrAdd = overload(
+            const overloadConcatOrAdd = overload(
                 ['string'],
-                function(s) {
-                    return s + s;
-                },
+                s => s + s,
 
                 ['number'],
-                function(n) {
-                    return addRandom(n);
-                }
+                n => addRandom(n)
             );
 
-            overloadedFn = Array.prototype.map.bind(array, function(element) {
-                return overloadConcatOrAdd(element);
-            });
+            overloadedFn = Array.prototype.map.bind(array, element => overloadConcatOrAdd(element));
         });
 
-        it('fn', function() {
+        it('fn', () => {
             repeat(fn, REPEATS);
         });
 
-        it('overloadedFn', function() {
+        it('overloadedFn', () => {
             repeat(overloadedFn, REPEATS);
         });
     });
