@@ -74,8 +74,7 @@ export default function overload(...args) {
         .join(' else ');
 
     const serializedSignature = serializeSignature(longestSignature);
-    const code =
-`return function(${serializedSignature}) {
+    const code = `return function(${serializedSignature}) {
     var hashKey = '';
     for (var i = 0, len = arguments.length; i < len; i++) {
         hashKey += getType(arguments[i]);
