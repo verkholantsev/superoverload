@@ -2,11 +2,11 @@
     "name": "superoverload",
     "version": "0.1.4",
     "description": "Function overload for JavaScript",
-    "main": "dist/index.js",
+    "main": "build/index.js",
     "scripts": {
         "test": "mocha test/*.js -R spec --require babel-core/register",
         "benchmark": "mocha benchmark/*.js -R spec --require babel-core/register",
-        "dist": "rollup -c && prettier dist/index.js --write",
+        "build": "rollup -c && prettier build/index.js --write",
         "format": "eslint --fix . && prettier --write **/*.{md,json,js}"
     },
     "keywords": ["function", "overload", "javascript"],

@@ -8,7 +8,7 @@
     var TYPE_REGEX = /\s([a-zA-Z]+)/;
 
     /**
-     * Returns normalized type of `arg`
+     * Returns type of `arg`
      *
      * @param {*} arg
      * @return {string}
@@ -61,10 +61,10 @@
      *
      * const fn = overload(
      *     ['number'],
-     *     function (a) { return 'It is a number'; },
+     *     a =>'It is a number',
      *
      *     ['string'],
-     *     function (a) { return 'It is a string'; }
+     *     a => 'It is a string'
      * )
      *
      * fn(1); // => 'It is a number'
@@ -75,10 +75,10 @@
      * Fallback function can be passed as a first argument, like this:
      *
      * const fn = overload(
-     *     function (a) { return 'It is something else'; },
+     *     a => 'It is something else',
      *
      *     ['number'],
-     *     function (a) { return 'It is a number'; }
+     *     a => 'It is a number'
      * )
      *
      * fn(1); // => 'It is a number'
