@@ -7,7 +7,9 @@
         "test": "mocha test/*.js -R spec --require babel-core/register",
         "benchmark": "mocha benchmark/*.js -R spec --require babel-core/register",
         "build": "rollup -c && prettier build/index.js --write",
-        "format": "eslint --fix . && prettier --write **/*.{md,json,js}"
+        "format": "eslint --fix . && prettier --write **/*.{md,json,js}",
+        "lint": "eslint .",
+        "flow": "flow ."
     },
     "keywords": [
         "function",
