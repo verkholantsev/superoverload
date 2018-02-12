@@ -31,7 +31,6 @@
      * @param {array} array
      * @return {array}
      */
-
     function pair(array) {
         return array.reduce(function(result, element, i) {
             i = parseInt(i / 2, 10);

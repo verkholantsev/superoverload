@@ -1,5 +1,3 @@
-'use strict';
-
 import getType from './getType';
 import pair from './pair';
 

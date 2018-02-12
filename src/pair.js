@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * Transforms array into array of pairs [0, 1, 2, 3] => [[0, 1], [2, 3]]
  *

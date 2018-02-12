@@ -1,5 +1,3 @@
-'use strict';
-
 const TYPE_REGEX = /\s([a-zA-Z]+)/;
 
 /**
