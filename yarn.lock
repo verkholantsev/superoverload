@@ -688,6 +688,10 @@ caniuse-lite@^1.0.30000792:
   version "1.0.30000808"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000808.tgz#7d759b5518529ea08b6705a19e70dbf401628ffc"
 
+captain-git-hook@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/captain-git-hook/-/captain-git-hook-1.1.1.tgz#c371778b4991641bef7840b81813ad0c9c312ad6"
+
 chalk@^1.1.3:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-1.1.3.tgz#a8115c55e4a702fe4d150abd3872822a7e09fc98"

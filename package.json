@@ -5,11 +5,13 @@
     "main": "build/index.js",
     "scripts": {
         "test": "mocha test/*.js -R spec --require babel-core/register",
-        "benchmark": "npm run build && node ./benchmark",
+        "benchmark": "yarn run build && node ./benchmark",
         "build": "rollup -c && prettier build/index.js --write",
         "format": "eslint --fix . && prettier --write **/*.{md,json,js}",
         "lint": "eslint .",
-        "flow": "flow ."
+        "flow": "flow .",
+        "pre-commit": "yarn run lint && yarn run flow",
+        "pre-push": "yarn test"
     },
     "keywords": [
         "function",
@@ -32,13 +34,14 @@
         "babel-preset-env": "^1.6.1",
         "babel-preset-flow": "^6.23.0",
         "benchmark": "^2.1.4",
+        "captain-git-hook": "^1.1.1",
         "eslint": "^4.17.0",
         "eslint-config-prettier": "^2.9.0",
         "eslint-plugin-flowtype": "^2.44.0",
         "eslint-plugin-prettier": "^2.6.0",
         "flow-bin": "^0.65.0",
-        "mocha": "^5.0.1",
         "lodash": "^4.17.5",
+        "mocha": "^5.0.1",
         "must": "^0.13.4",
         "prettier": "^1.10.2",
         "rollup": "^0.55.5",
