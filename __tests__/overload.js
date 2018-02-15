@@ -1,11 +1,10 @@
 'use strict';
 
-import expect from 'must';
 import overload from '../src/overload';
 
 describe('overload()', () => {
     it('should return a function', () => {
-        expect(overload()).to.be.a.function();
+        expect(overload()).toEqual(expect.any(Function));
     });
 
     describe('called with even number of arguments', () => {
@@ -22,14 +21,14 @@ describe('overload()', () => {
             });
 
             it('calls function with corresponding signature', () => {
-                expect(fn('string')).to.be.eql('string');
-                expect(fn([])).to.be.eql('array');
+                expect(fn('string')).toEqual('string');
+                expect(fn([])).toEqual('array');
             });
 
             describe('throw an exception', () => {
                 it('if there is no function with corresponding signature', () => {
                     const message = 'No matching function for call with signature "number, number"';
-                    expect(() => fn(1, 2)).to.throw(message);
+                    expect(() => fn(1, 2)).toThrow(message);
                 });
             });
         });
@@ -51,13 +50,13 @@ describe('overload()', () => {
             });
 
             it('calls function with corresponding signature', () => {
-                expect(fn('string')).to.be.eql('string');
-                expect(fn(1)).to.be.eql('number');
+                expect(fn('string')).toEqual('string');
+                expect(fn(1)).toEqual('number');
             });
 
             describe('calls first function', () => {
                 it('if there is no function with corresponding signature', () => {
-                    expect(fn(true)).to.be.eql('default');
+                    expect(fn(true)).toEqual('default');
                 });
 
                 describe('with', () => {
@@ -66,7 +65,7 @@ describe('overload()', () => {
                     });
 
                     it('all passed arguments', () => {
-                        expect(fn(true)).to.be.eql(true);
+                        expect(fn(true)).toEqual(true);
                     });
                 });
             });
@@ -80,7 +79,7 @@ describe('overload()', () => {
         });
 
         it('should return working overloaded function', () => {
-            expect(fn(1, '', [], {}, () => {}, /1/, new Date())).to.be.eql('ok');
+            expect(fn(1, '', [], {}, () => {}, /1/, new Date())).toEqual('ok');
         });
     });
 });
