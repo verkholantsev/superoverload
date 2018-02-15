@@ -1,107 +1,41 @@
-'use strict';
+import Benchmark from 'benchmark';
+import range from 'lodash/range';
 
-import overload from '../';
+import produceOverloadedFn from './produce-overloaded-fn';
+import log from './log';
 
-/**
- *
- * @param {number} n
- * @return {number}
- */
-function addRandom(n) {
-    return n + Math.random();
-}
+const getRandomArray = len => range(len).map(() => Math.random());
 
-/**
- *
- * @param {number} length
- * @return {array}
- */
-function getArray(length) {
-    const result = [];
-    for (let i = 0; i < length; i++) result.push(void 0);
-    return result;
-}
+const array = getRandomArray(100);
 
-/**
- *
- * @param {number} length
- * @return {array}
- */
-function getRandomArray(length) {
-    return getArray(length).map(() => Math.random());
-}
+const addRandom = n => n + Math.random();
 
-/**
- *
- * @param {function} fn
- * @param {number} times
- */
-function repeat(fn, times) {
-    while (times--) fn();
-}
+const fn = () => {
+    for (const element of array) {
+        addRandom(element);
+    }
+};
 
-describe('benchmark', () => {
-    let array;
-    let fn;
-    let overloadedFn;
+const overloaded0 = produceOverloadedFn(0, fn);
 
-    let ARRAY_LENGTH = 1;
-    let REPEATS = 1000000;
+const overloaded100 = produceOverloadedFn(100, fn);
 
-    before(() => {
-        array = getRandomArray(ARRAY_LENGTH);
-    });
+const overloaded1000 = produceOverloadedFn(1000, fn);
 
-    describe('simple call', () => {
-        before(() => {
-            fn = Array.prototype.map.bind(array, element => addRandom(element));
+const suite = new Benchmark.Suite();
 
-            const overloadedAddRandom = overload(addRandom);
-            overloadedFn = Array.prototype.map.bind(array, element => overloadedAddRandom(element));
-        });
-
-        it('fn', () => {
-            repeat(fn, REPEATS);
-        });
-
-        it('overloadedFn', () => {
-            repeat(overloadedFn, REPEATS);
-        });
-    });
-
-    describe('overloaded call', () => {
-        before(() => {
-            array = array.map(element => {
-                if (element < 0.5) return String(element);
-
-                return element;
-            });
-
-            fn = Array.prototype.map.bind(array, element => {
-                if (typeof element === 'string') {
-                    return element + element;
-                }
-
-                return addRandom(element);
-            });
-
-            const overloadConcatOrAdd = overload(
-                ['string'],
-                s => s + s,
-
-                ['number'],
-                n => addRandom(n)
-            );
-
-            overloadedFn = Array.prototype.map.bind(array, element => overloadConcatOrAdd(element));
-        });
-
-        it('fn', () => {
-            repeat(fn, REPEATS);
-        });
-
-        it('overloadedFn', () => {
-            repeat(overloadedFn, REPEATS);
-        });
-    });
-});
+suite
+    .add('Not overloaded'.padEnd(40, '.'), () => {
+        fn();
+    })
+    .add('Overloaded with 1000x options'.padEnd(40, '.'), () => {
+        overloaded1000();
+    })
+    .add('Overloaded with 100x options'.padEnd(40, '.'), () => {
+        overloaded100();
+    })
+    .add('Overloaded with 0x option'.padEnd(40, '.'), () => {
+        overloaded0();
+    })
+    .on('cycle', event => log(String(event.target)))
+    .run({ async: true });
