@@ -76,7 +76,7 @@ return function overloadedFn(${serializedSignature}) {
     }
 
     for (var i = 0; i < len; i++) {
-        hashKey += 'number'
+        hashKey += getType(args[i]);
         if (i !== len - 1) {
             hashKey += ", ";
         }
