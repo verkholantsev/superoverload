@@ -36,12 +36,16 @@
      * @return {array}
      */
     function pair(array) {
-        return array.reduce(function(result, element, i) {
-            i = parseInt(i / 2, 10);
-            result[i] = result[i] || [];
-            result[i].push(element);
-            return result;
-        }, []);
+        var result = [];
+
+        for (var i = 0, len = array.length; i < len; i++) {
+            var element = array[i];
+            var index = Math.floor(i / 2);
+            result[index] = result[index] || [];
+            result[index].push(element);
+        }
+
+        return result;
     }
 
     /**
@@ -107,7 +111,6 @@
             var fn = _pair[1];
 
             var hashKey = signature.join(', ');
-
             fns[i] = fn;
 
             if (signature.length > longestSignature.length) {
@@ -128,9 +131,9 @@
 
         var serializedSignature = serializeSignature(longestSignature);
         var code =
-            '\nreturn function(' +
+            '\nreturn function overloadedFn(' +
             serializedSignature +
-            ') {\n    var hashKey = \'\';\n    for (var i = 0, len = arguments.length; i < len; i++) {\n        hashKey += getType(arguments[i]);\n        if (i !== len - 1) {\n            hashKey += ", ";\n        }\n    }\n    ' +
+            ") {\n    var hashKey = '';\n    var len = arguments.length;\n    var args = new Array(len);\n\n    for (var i = 0; i < len; i++) {\n        args[i] = arguments[i];\n    }\n\n    for (var i = 0; i < len; i++) {\n        hashKey += 'number'\n        if (i !== len - 1) {\n            hashKey += \", \";\n        }\n    }\n    " +
             ifs +
             '\n    ' +
             (pairs.length > 0 ? 'else {' : '') +

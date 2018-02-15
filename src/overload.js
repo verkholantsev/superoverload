@@ -2,19 +2,7 @@
 
 import getType from './get-type';
 import pair from './pair';
-
-/**
- *
- * @param {array} array
- * @return {string}
- */
-function serializeSignature(array: Array<*>): string {
-    return array
-        .map(function(arg, index) {
-            return '_' + index;
-        })
-        .join(',');
-}
+import serializeSignature from './serialize-signature';
 
 /**
  * Function overload implementation
@@ -62,7 +50,6 @@ export default function overload(...args: Array<*>): Function {
         const fn = pair[1];
 
         const hashKey = signature.join(', ');
-
         fns[i] = fn;
 
         if (signature.length > longestSignature.length) {
@@ -79,10 +66,17 @@ if (hashKey === '${hashKey}') {
 
     const serializedSignature = serializeSignature(longestSignature);
     const code = `
-return function(${serializedSignature}) {
+return function overloadedFn(${serializedSignature}) {
     var hashKey = '';
-    for (var i = 0, len = arguments.length; i < len; i++) {
-        hashKey += getType(arguments[i]);
+    var len = arguments.length;
+    var args = new Array(len);
+
+    for (var i = 0; i < len; i++) {
+        args[i] = arguments[i];
+    }
+
+    for (var i = 0; i < len; i++) {
+        hashKey += 'number'
         if (i !== len - 1) {
             hashKey += ", ";
         }

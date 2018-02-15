@@ -7,10 +7,14 @@
  * @return {array}
  */
 export default function pair<T>(array: Array<T>): Array<Array<T>> {
-    return array.reduce((result, element, i) => {
-        i = parseInt(i / 2, 10);
-        result[i] = result[i] || [];
-        result[i].push(element);
-        return result;
-    }, []);
+    const result = [];
+
+    for (var i = 0, len = array.length; i < len; i++) {
+        const element = array[i];
+        const index = Math.floor(i / 2);
+        result[index] = result[index] || [];
+        result[index].push(element);
+    }
+
+    return result;
 }
