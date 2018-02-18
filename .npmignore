@@ -4,8 +4,10 @@
 .flowconfig
 .prettierrc
 .travis.yml
-yarn.lock
+__tests__/
+benchmark/
+coverage/
 rollup.config.js
 src/
 test/
-benchmark/
+yarn.lock
