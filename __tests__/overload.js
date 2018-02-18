@@ -25,6 +25,10 @@ describe('overload()', () => {
                 expect(fn([])).toEqual('array');
             });
 
+            it('result of toString() matches snapshot', () => {
+                expect(fn.toString()).toMatchSnapshot();
+            });
+
             describe('throw an exception', () => {
                 it('if there is no function with corresponding signature', () => {
                     const message = 'No matching function for call with signature "number, number"';
@@ -52,6 +56,10 @@ describe('overload()', () => {
             it('calls function with corresponding signature', () => {
                 expect(fn('string')).toEqual('string');
                 expect(fn(1)).toEqual('number');
+            });
+
+            it('result of toString() matches snapshot', () => {
+                expect(fn.toString()).toMatchSnapshot();
             });
 
             describe('calls first function', () => {
