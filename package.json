@@ -11,7 +11,8 @@
         "lint": "eslint ./**/*.js",
         "flow": "flow .",
         "pre-commit": "yarn run lint && yarn run flow",
-        "pre-push": "yarn test"
+        "pre-push": "yarn test",
+        "coveralls": "jest --coverage && cat coverage/lcov.info | coveralls"
     },
     "keywords": [
         "function",
@@ -35,6 +36,7 @@
         "babel-preset-flow": "^6.23.0",
         "benchmark": "^2.1.4",
         "captain-git-hook": "^1.1.1",
+        "coveralls": "^3.0.0",
         "eslint": "^4.17.0",
         "eslint-config-prettier": "^2.9.0",
         "eslint-plugin-flowtype": "^2.44.0",

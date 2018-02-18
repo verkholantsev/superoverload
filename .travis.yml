@@ -9,3 +9,6 @@ script:
   - yarn run flow
   - yarn test
   - yarn run build
+
+after_script:
+  - yarn run coveralls
