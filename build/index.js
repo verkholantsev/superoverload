@@ -31,9 +31,6 @@
 
     /**
      * Transforms array into array of pairs [0, 1, 2, 3] => [[0, 1], [2, 3]]
-     *
-     * @param {array} array
-     * @return {array}
      */
     function pair(array) {
         var result = [];
@@ -49,9 +46,7 @@
     }
 
     /**
-     *
-     * @param {array} array
-     * @return {string}
+     * Returns serialized signature as a string
      */
     function serializeSignature(array) {
         return array
@@ -113,8 +108,6 @@
      *
      * fn(1); // => 'It is a number'
      * fn(''); // => 'It is something else'
-     *
-     * @return {function}
      */
     function overload() {
         for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {

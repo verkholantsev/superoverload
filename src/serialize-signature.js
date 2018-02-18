@@ -1,9 +1,7 @@
 // @flow
 
 /**
- *
- * @param {array} array
- * @return {string}
+ * Returns serialized signature as a string
  */
 export default function serializeSignature(array: Array<*>): string {
     return array

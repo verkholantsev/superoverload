@@ -34,8 +34,6 @@ import getUnsupportedTypes from './get-unsupported-types';
  *
  * fn(1); // => 'It is a number'
  * fn(''); // => 'It is something else'
- *
- * @return {function}
  */
 export default function overload(...args: Array<*>): Function {
     const defaultFn = args.length % 2 > 0 ? args.shift() : null;
