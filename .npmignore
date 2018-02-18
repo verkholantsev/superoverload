@@ -1,3 +1,9 @@
+.babelrc
+.eslintignore
+.eslintrc.js
+.flowconfig
+.prettierrc
+.travis.yml
 yarn.lock
 rollup.config.js
 src/
