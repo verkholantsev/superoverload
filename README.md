@@ -1,5 +1,6 @@
 [![NPM version](https://img.shields.io/github/package-json/v/verkholantsev/superoverload.svg)](https://www.npmjs.com/package/superoverload)
 [![Build Status](https://img.shields.io/travis/verkholantsev/superoverload.svg)](https://travis-ci.org/verkholantsev/superoverload)
+[![Coverage report](https://img.shields.io/coveralls/github/verkholantsev/superoverload.svg)](https://coveralls.io/github/verkholantsev/superoverload)
 
 # Superoverload
 
