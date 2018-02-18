@@ -12,7 +12,7 @@
         "flow": "flow .",
         "pre-commit": "yarn run lint && yarn run flow",
         "pre-push": "yarn test",
-        "coveralls": "jest --coverage && cat coverage/lcov.info | coveralls"
+        "publish:coverage": "jest --coverage && cat coverage/lcov.info | coveralls"
     },
     "keywords": [
         "function",

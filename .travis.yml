@@ -11,4 +11,4 @@ script:
   - yarn run build
 
 after_script:
-  - yarn run coveralls
+    - yarn run publish:coverage
