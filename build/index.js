@@ -9,9 +9,6 @@
 
     /**
      * Returns type of `arg`
-     *
-     * @param {*} arg
-     * @return {string}
      */
     function getType(arg) {
         if (arg === null) {
