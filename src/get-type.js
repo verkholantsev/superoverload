@@ -4,9 +4,6 @@ const TYPE_REGEX = /\s([a-zA-Z]+)/;
 
 /**
  * Returns type of `arg`
- *
- * @param {*} arg
- * @return {string}
  */
 export default function getType(arg: mixed): string {
     if (arg === null) {
