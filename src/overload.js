@@ -3,6 +3,7 @@
 import getType from './get-type';
 import pair from './pair';
 import serializeSignature from './serialize-signature';
+import getUnsupportedTypes from './get-unsupported-types';
 
 /**
  * Function overload implementation
@@ -48,6 +49,13 @@ export default function overload(...args: Array<*>): Function {
         const pair = pairs[i];
         const signature = pair[0];
         const fn = pair[1];
+
+        const unsupportedTypes = getUnsupportedTypes(signature);
+        if (unsupportedTypes.length > 0) {
+            throw new Error(
+                `Signature "${signature.join(', ')}" contains unsupported types: "${unsupportedTypes.join(', ')}"`
+            );
+        }
 
         const hashKey = signature.join(', ');
         fns[i] = fn;

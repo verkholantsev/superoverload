@@ -73,13 +73,21 @@ describe('overload()', () => {
     });
 
     describe('called with complicated signature', () => {
-        var fn;
+        let fn;
         beforeEach(() => {
             fn = overload(['number', 'string', 'array', 'object', 'function', 'regexp', 'date'], () => 'ok');
         });
 
         it('should return working overloaded function', () => {
             expect(fn(1, '', [], {}, () => {}, /1/, new Date())).toEqual('ok');
+        });
+    });
+
+    describe('called with unsupported types', () => {
+        it('should throw an error', () => {
+            expect(() => overload(['number', 'string', 'unsupported-type'], () => {})).toThrow(
+                'Signature "number, string, unsupported-type" contains unsupported types: "unsupported-type"'
+            );
         });
     });
 });

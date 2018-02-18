@@ -61,6 +61,29 @@
             .join(',');
     }
 
+    var SUPPORTED_TYPES = toObject(['number', 'string', 'array', 'object', 'function', 'regexp', 'date']);
+
+    /**
+     * Creates object from array
+     *
+     * @private
+     */
+    function toObject(elements) {
+        return elements.reduce(function(acc, element) {
+            acc[element] = true;
+            return acc;
+        }, {});
+    }
+
+    /**
+     * Returns unsupported types from function's signature
+     */
+    function getUnsupportedTypes(signature) {
+        return signature.filter(function(type) {
+            return !SUPPORTED_TYPES[type];
+        });
+    }
+
     /**
      * Function overload implementation
      *
@@ -110,6 +133,17 @@
             var signature = _pair[0];
             var fn = _pair[1];
 
+            var unsupportedTypes = getUnsupportedTypes(signature);
+            if (unsupportedTypes.length > 0) {
+                throw new Error(
+                    'Signature "' +
+                        signature.join(', ') +
+                        '" contains unsupported types: "' +
+                        unsupportedTypes.join(', ') +
+                        '"'
+                );
+            }
+
             var hashKey = signature.join(', ');
             fns[i] = fn;
 
@@ -133,7 +167,7 @@
         var code =
             '\nreturn function overloadedFn(' +
             serializedSignature +
-            ") {\n    var hashKey = '';\n    var len = arguments.length;\n    var args = new Array(len);\n\n    for (var i = 0; i < len; i++) {\n        args[i] = arguments[i];\n    }\n\n    for (var i = 0; i < len; i++) {\n        hashKey += 'number'\n        if (i !== len - 1) {\n            hashKey += \", \";\n        }\n    }\n    " +
+            ') {\n    var hashKey = \'\';\n    var len = arguments.length;\n    var args = new Array(len);\n\n    for (var i = 0; i < len; i++) {\n        args[i] = arguments[i];\n    }\n\n    for (var i = 0; i < len; i++) {\n        hashKey += getType(args[i]);\n        if (i !== len - 1) {\n            hashKey += ", ";\n        }\n    }\n    ' +
             ifs +
             '\n    ' +
             (pairs.length > 0 ? 'else {' : '') +
