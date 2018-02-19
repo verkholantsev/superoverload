@@ -13,23 +13,22 @@ exports[`overload() called with even number of arguments should return function,
     for (var i = 0; i < len; i++) {
         hashKey += getType(args[i]);
         if (i !== len - 1) {
-            hashKey += \\", \\";
+            hashKey += ', ';
         }
     }
-    
-if (hashKey === 'string') {
-    return fns[0].call(this, _0);
-} else 
-if (hashKey === 'array') {
-    return fns[1].call(this, _0);
-}
-    else {
-    if (!defaultFn) {
-        throw new Error('No matching function for call with signature \\"' + hashKey + '\\"');
-    }
+
+    if (hashKey === 'string') {
+        return fns[0].call(this, _0);
+    } else if (hashKey === 'array') {
+        return fns[1].call(this, _0);
+    } else {
+        if (!defaultFn) {
+            throw new Error('No matching function for call with signature \\"' + hashKey + '\\"');
+        }
     }
     return defaultFn.apply(this, arguments);
-}"
+}
+"
 `;
 
 exports[`overload() called with odd number of arguments should return function, which result of toString() matches snapshot 1`] = `
@@ -45,21 +44,20 @@ exports[`overload() called with odd number of arguments should return function, 
     for (var i = 0; i < len; i++) {
         hashKey += getType(args[i]);
         if (i !== len - 1) {
-            hashKey += \\", \\";
+            hashKey += ', ';
         }
     }
-    
-if (hashKey === 'string') {
-    return fns[0].call(this, _0);
-} else 
-if (hashKey === 'number') {
-    return fns[1].call(this, _0);
-}
-    else {
-    if (!defaultFn) {
-        throw new Error('No matching function for call with signature \\"' + hashKey + '\\"');
-    }
+
+    if (hashKey === 'string') {
+        return fns[0].call(this, _0);
+    } else if (hashKey === 'number') {
+        return fns[1].call(this, _0);
+    } else {
+        if (!defaultFn) {
+            throw new Error('No matching function for call with signature \\"' + hashKey + '\\"');
+        }
     }
     return defaultFn.apply(this, arguments);
-}"
+}
+"
 `;

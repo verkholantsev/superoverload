@@ -157,7 +157,7 @@
         var code =
             '\nreturn function overloadedFn(' +
             serializedSignature +
-            ') {\n    var hashKey = \'\';\n    var len = arguments.length;\n    var args = new Array(len);\n\n    for (var i = 0; i < len; i++) {\n        args[i] = arguments[i];\n    }\n\n    for (var i = 0; i < len; i++) {\n        hashKey += getType(args[i]);\n        if (i !== len - 1) {\n            hashKey += ", ";\n        }\n    }\n    ' +
+            ") {\n    var hashKey = '';\n    var len = arguments.length;\n    var args = new Array(len);\n\n    for (var i = 0; i < len; i++) {\n        args[i] = arguments[i];\n    }\n\n    for (var i = 0; i < len; i++) {\n        hashKey += getType(args[i]);\n        if (i !== len - 1) {\n            hashKey += ', ';\n        }\n    }\n    " +
             ifs +
             '\n    ' +
             (pairs.length > 0 ? 'else {' : '') +

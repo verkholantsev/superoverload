@@ -1,6 +1,12 @@
 'use strict';
 
 import overload from '../src/overload';
+import prettier from 'prettier';
+
+const expectFormattedFnToMatchSnapshot = async fn => {
+    const config = await prettier.resolveConfig(__filename);
+    expect(prettier.format(fn.toString(), config)).toMatchSnapshot();
+};
 
 describe('overload()', () => {
     it('should return a function', () => {
@@ -25,8 +31,8 @@ describe('overload()', () => {
                 expect(fn([])).toEqual('array');
             });
 
-            it('result of toString() matches snapshot', () => {
-                expect(fn.toString()).toMatchSnapshot();
+            it('result of toString() matches snapshot', async () => {
+                await expectFormattedFnToMatchSnapshot(fn);
             });
 
             describe('throw an exception', () => {
@@ -58,8 +64,8 @@ describe('overload()', () => {
                 expect(fn(1)).toEqual('number');
             });
 
-            it('result of toString() matches snapshot', () => {
-                expect(fn.toString()).toMatchSnapshot();
+            it('result of toString() matches snapshot', async () => {
+                await expectFormattedFnToMatchSnapshot(fn);
             });
 
             describe('calls first function', () => {
