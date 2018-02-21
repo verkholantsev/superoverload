@@ -47,7 +47,7 @@
      */
     function serializeSignature(array) {
         return array
-            .map(function(arg, index) {
+            .map(function(_, index) {
                 return '_' + index;
             })
             .join(',');
