@@ -12,7 +12,8 @@
         "flow": "flow .",
         "pre-commit": "yarn run lint && yarn run flow",
         "pre-push": "yarn test",
-        "publish:coverage": "jest --coverage && cat coverage/lcov.info | coveralls"
+        "publish:coverage": "jest --coverage && cat coverage/lcov.info | coveralls",
+        "release": "np"
     },
     "keywords": [
         "function",
@@ -44,6 +45,7 @@
         "flow-bin": "^0.66.0",
         "jest": "^22.4.0",
         "lodash": "^4.17.5",
+        "np": "^2.20.1",
         "prettier": "^1.10.2",
         "rollup": "^0.56.2",
         "rollup-plugin-babel": "^3.0.3",
