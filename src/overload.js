@@ -93,7 +93,7 @@ return function overloadedFn(${serializedSignature}) {
         throw new Error('No matching function for call with signature "' + hashKey + '"');
     }
     ${pairs.length > 0 ? '}' : ''}
-    return defaultFn.apply(this, arguments);
+    return defaultFn.apply(this, args);
 }`;
 
     const superFunc = new Function('getType, fns, defaultFn', code);

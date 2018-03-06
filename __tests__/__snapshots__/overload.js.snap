@@ -26,7 +26,7 @@ exports[`overload() called with even number of arguments should return function,
             throw new Error('No matching function for call with signature \\"' + hashKey + '\\"');
         }
     }
-    return defaultFn.apply(this, arguments);
+    return defaultFn.apply(this, args);
 }
 "
 `;
@@ -57,7 +57,7 @@ exports[`overload() called with odd number of arguments should return function, 
             throw new Error('No matching function for call with signature \\"' + hashKey + '\\"');
         }
     }
-    return defaultFn.apply(this, arguments);
+    return defaultFn.apply(this, args);
 }
 "
 `;
