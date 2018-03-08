@@ -163,7 +163,7 @@
             (pairs.length > 0 ? 'else {' : '') +
             "\n    if (!defaultFn) {\n        throw new Error('No matching function for call with signature \"' + hashKey + '\"');\n    }\n    " +
             (pairs.length > 0 ? '}' : '') +
-            '\n    return defaultFn.apply(this, arguments);\n}';
+            '\n    return defaultFn.apply(this, args);\n}';
 
         var superFunc = new Function('getType, fns, defaultFn', code);
 
