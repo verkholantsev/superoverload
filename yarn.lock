@@ -966,9 +966,9 @@ caniuse-lite@^1.0.30000792:
   version "1.0.30000809"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000809.tgz#1e12c1344b8f74d56737ee2614bcedb648943479"
 
-captain-git-hook@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/captain-git-hook/-/captain-git-hook-1.1.1.tgz#c371778b4991641bef7840b81813ad0c9c312ad6"
+captain-git-hook@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/captain-git-hook/-/captain-git-hook-2.0.0.tgz#57b9740505a1f0931adac2f369a645c167b1a629"
 
 capture-stack-trace@^1.0.0:
   version "1.0.0"
