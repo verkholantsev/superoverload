@@ -17,6 +17,6 @@ function toObject(elements: Array<string>) {
 /**
  * Returns unsupported types from function's signature
  */
-export default function getUnsupportedTypes(signature: Array<string>) {
+export default function getUnsupportedTypes(signature: Array<string>): Array<string> {
     return signature.filter(type => !SUPPORTED_TYPES[type]);
 }
