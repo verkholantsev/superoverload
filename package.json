@@ -15,9 +15,15 @@
         "publish:coverage": "jest --coverage && cat coverage/lcov.info | coveralls",
         "release": "np"
     },
-    "keywords": ["function", "overload", "javascript"],
+    "keywords": [
+        "function",
+        "overload",
+        "javascript"
+    ],
     "author": "Aleksey Verkholantsev <poshli.pismo@gmail.com> (https://github.com/verkholantsev)",
-    "contributors": ["escaton (https://github.com/escaton)"],
+    "contributors": [
+        "escaton (https://github.com/escaton)"
+    ],
     "license": "MIT",
     "repository": {
         "type": "git",
@@ -40,7 +46,7 @@
         "jest": "^23.0.0",
         "lodash": "^4.17.5",
         "np": "^3.0.1",
-        "prettier": "^1.10.2",
+        "prettier": "^1.13.0",
         "rollup": "^0.59.0",
         "rollup-plugin-babel": "^3.0.3",
         "rollup-plugin-commonjs": "^9.0.0",
