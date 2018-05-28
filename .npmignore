@@ -1,13 +1,3 @@
-.babelrc
-.eslintignore
-.eslintrc.js
-.flowconfig
-.prettierrc
-.travis.yml
-__tests__/
-benchmark/
-coverage/
-rollup.config.js
-src/
-test/
-yarn.lock
+*
+
+!build/*
