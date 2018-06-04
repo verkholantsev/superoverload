@@ -3570,8 +3570,8 @@ normalize-path@^2.0.0, normalize-path@^2.0.1:
     remove-trailing-separator "^1.0.1"
 
 np@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/np/-/np-3.0.1.tgz#01c53773dd537f2896db8c2f6a0328a950171f93"
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/np/-/np-3.0.3.tgz#42c25724ee87cc0a4f27e9b684b769321fb328d1"
   dependencies:
     "@samverschueren/stream-to-observable" "^0.3.0"
     any-observable "^0.3.0"
