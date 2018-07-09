@@ -1594,8 +1594,8 @@ eslint-config-prettier@^2.9.0:
     get-stdin "^5.0.1"
 
 eslint-plugin-flowtype@^2.45.0:
-  version "2.49.3"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-flowtype/-/eslint-plugin-flowtype-2.49.3.tgz#ccca6ee5ba2027eb3ed36bc2ec8c9a842feee841"
+  version "2.49.4"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-flowtype/-/eslint-plugin-flowtype-2.49.4.tgz#3879fca1977a0b76059e0e177361dd046d2f8832"
   dependencies:
     lodash "^4.17.10"
 
