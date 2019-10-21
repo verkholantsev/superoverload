@@ -41,7 +41,7 @@
         "eslint-config-prettier": "^2.9.0",
         "eslint-plugin-flowtype": "^2.45.0",
         "eslint-plugin-prettier": "^2.6.0",
-        "flow-bin": "^0.76.0",
+        "flow-bin": "^0.110.0",
         "jest": "^23.0.0",
         "lodash": "^4.17.5",
         "np": "^3.0.1",
