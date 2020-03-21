@@ -1,6 +1,6 @@
 name: Node.js CI
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   build:
@@ -17,11 +17,25 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: yarn install
-    - run: yarn lint
-    - run: yarn flow
-    - run: yarn test
-    - run: yarn run build
-    - run: yarn run publish:coverage
+    - name: Install dependencies
+      run: yarn install
+
+    - name: Lint files
+      run: yarn lint
+
+    - name: Check Flow
+      run: yarn flow
+
+    - name: Run tests with coverage
+      run: yarn run coverage
+
+    - name: Run build
+      run: yarn run build
+
+    - name: Coveralls
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+
       env:
         CI: true
