@@ -9,7 +9,7 @@ import getUnsupportedTypes from './get-unsupported-types';
  * This function is used to identify strings for compression, see `src/babel-plugin-compress-template-literals`
  */
 function compress(string) {
-    return string;
+  return string;
 }
 
 /**
@@ -43,42 +43,44 @@ function compress(string) {
  * fn(''); // => 'It is something else'
  */
 export default function overload(...args: Array<*>): Function {
-    const defaultFn = args.length % 2 > 0 ? args.shift() : null;
-    const pairs = pair(args);
+  const defaultFn = args.length % 2 > 0 ? args.shift() : null;
+  const pairs = pair(args);
 
-    const ifsArray = new Array(pairs.length);
-    const fns = new Array(pairs.length);
-    let longestSignature = [];
+  const ifsArray = new Array(pairs.length);
+  const fns = new Array(pairs.length);
+  let longestSignature = [];
 
-    for (let i = 0; i < pairs.length; i++) {
-        const pair = pairs[i];
-        const signature = pair[0];
-        const fn = pair[1];
+  for (let i = 0; i < pairs.length; i++) {
+    const pair = pairs[i];
+    const signature = pair[0];
+    const fn = pair[1];
 
-        const unsupportedTypes = getUnsupportedTypes(signature);
-        if (unsupportedTypes.length > 0) {
-            throw new Error(
-                `Signature "${signature.join(', ')}" contains unsupported types: "${unsupportedTypes.join(', ')}"`
-            );
-        }
+    const unsupportedTypes = getUnsupportedTypes(signature);
+    if (unsupportedTypes.length > 0) {
+      throw new Error(
+        `Signature "${signature.join(
+          ', ',
+        )}" contains unsupported types: "${unsupportedTypes.join(', ')}"`,
+      );
+    }
 
-        const hashKey = signature.join(', ');
-        fns[i] = fn;
+    const hashKey = signature.join(', ');
+    fns[i] = fn;
 
-        if (signature.length > longestSignature.length) {
-            longestSignature = signature;
-        }
+    if (signature.length > longestSignature.length) {
+      longestSignature = signature;
+    }
 
-        ifsArray[i] = compress(`
+    ifsArray[i] = compress(`
 if (hashKey === '${hashKey}') {
     return fns[${String(i)}].call(this, ${serializeSignature(signature)});
 }`);
-    }
+  }
 
-    const ifs = ifsArray.join(' else ');
+  const ifs = ifsArray.join(' else ');
 
-    const serializedSignature = serializeSignature(longestSignature);
-    const code = compress(`
+  const serializedSignature = serializeSignature(longestSignature);
+  const code = compress(`
 return function overloadedFn(${serializedSignature}) {
     var hashKey = '';
     var len = arguments.length;
@@ -103,8 +105,8 @@ return function overloadedFn(${serializedSignature}) {
     return defaultFn.apply(this, args);
 }`);
 
-    const superFunc = new Function('getType, fns, defaultFn', code);
+  const superFunc = new Function('getType, fns, defaultFn', code);
 
-    // $FlowFixMe errors with `new Function(...)`
-    return superFunc(getType, fns, defaultFn);
+  // $FlowFixMe errors with `new Function(...)`
+  return superFunc(getType, fns, defaultFn);
 }

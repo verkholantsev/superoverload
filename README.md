@@ -14,11 +14,11 @@ Superoverload expects functions and their signatures as arguments. Like this:
 const overload = require('superoverload');
 
 const fn = overload(
-    ['number'],
-    a => 'It is a number',
+  ['number'],
+  a => 'It is a number',
 
-    ['string'],
-    a => 'It is a string'
+  ['string'],
+  a => 'It is a string',
 );
 
 fn(1); // => 'It is a number'
@@ -31,10 +31,10 @@ You can pass odd number of arguments, then the fisrt will be interpreted as _def
 const overload = require('superoverload');
 
 const fn = overload(
-    a => 'It is something else',
+  a => 'It is something else',
 
-    ['number'],
-    a => 'It is a number'
+  ['number'],
+  a => 'It is a number',
 );
 
 fn(1); // => 'It is a number'

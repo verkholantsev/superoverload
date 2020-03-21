@@ -1,6 +1,14 @@
 // @flow
 
-const SUPPORTED_TYPES = toObject(['number', 'string', 'array', 'object', 'function', 'regexp', 'date']);
+const SUPPORTED_TYPES = toObject([
+  'number',
+  'string',
+  'array',
+  'object',
+  'function',
+  'regexp',
+  'date',
+]);
 
 /**
  * Creates object from array
@@ -8,15 +16,17 @@ const SUPPORTED_TYPES = toObject(['number', 'string', 'array', 'object', 'functi
  * @private
  */
 function toObject(elements: Array<string>) {
-    return elements.reduce((acc, element) => {
-        acc[element] = true;
-        return acc;
-    }, {});
+  return elements.reduce((acc, element) => {
+    acc[element] = true;
+    return acc;
+  }, {});
 }
 
 /**
  * Returns unsupported types from function's signature
  */
-export default function getUnsupportedTypes(signature: Array<string>): Array<string> {
-    return signature.filter(type => !SUPPORTED_TYPES[type]);
+export default function getUnsupportedTypes(
+  signature: Array<string>,
+): Array<string> {
+  return signature.filter(type => !SUPPORTED_TYPES[type]);
 }

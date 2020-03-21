@@ -5,10 +5,10 @@ import noop from 'lodash/noop';
 import overload from '../';
 
 export default function produceOverloadedFn(len, fn) {
-    const args = range(len).reduce((acc, element, index) => {
-        const signature = range(index + 1).map(constant('number'));
-        return [...acc, signature, noop];
-    }, []);
+  const args = range(len).reduce((acc, element, index) => {
+    const signature = range(index + 1).map(constant('number'));
+    return [...acc, signature, noop];
+  }, []);
 
-    return overload(fn, ...args);
+  return overload(fn, ...args);
 }
