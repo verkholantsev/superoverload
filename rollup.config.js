@@ -14,7 +14,7 @@ module.exports = {
     },
     plugins: [
         babel({
-            presets: [['env', { modules: false }], 'flow'],
+            presets: [['@babel/env', { modules: false }], '@babel/flow'],
             exclude: 'node_modules/**',
             babelrc: false,
         }),

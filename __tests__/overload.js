@@ -1,10 +1,11 @@
 'use strict';
 
+import 'regenerator-runtime/runtime';
 import overload from '../src/overload';
 import prettier from 'prettier';
 
 const expectFormattedFnToMatchSnapshot = async fn => {
-    const config = Object.assign({ parser: 'babylon' }, await prettier.resolveConfig(__filename));
+    const config = Object.assign({ parser: 'babel' }, await prettier.resolveConfig(__filename));
     expect(prettier.format(fn.toString(), config)).toMatchSnapshot();
 };
 
