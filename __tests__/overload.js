@@ -1,7 +1,7 @@
 'use strict';
 
 import 'regenerator-runtime/runtime';
-import overload from '../src/overload';
+import overload from '../build/index';
 import prettier from 'prettier';
 
 const expectFormattedFnToMatchSnapshot = async fn => {

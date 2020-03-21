@@ -24,6 +24,7 @@ module.exports = {
     plugins: [
         babel({
             presets: [['@babel/env', { modules: false }], '@babel/flow'],
+            plugins: ['./src/babel-plugin-compress-template-literals'],
             exclude: 'node_modules/**',
             babelrc: false,
         }),

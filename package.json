@@ -4,7 +4,7 @@
     "description": "Function overload for JavaScript",
     "main": "build/index.js",
     "scripts": {
-        "test": "jest",
+        "test": "yarn run build && jest",
         "benchmark": "yarn run build && node ./benchmark",
         "build": "rollup -c && prettier build/index.js --write",
         "format": "eslint --fix . && prettier --write **/*.{md,json,js}",

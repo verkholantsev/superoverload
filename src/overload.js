@@ -6,6 +6,13 @@ import serializeSignature from './serialize-signature';
 import getUnsupportedTypes from './get-unsupported-types';
 
 /**
+ * This function is used to identify strings for compression, see `src/babel-plugin-compress-template-literals`
+ */
+function compress(string) {
+    return string;
+}
+
+/**
  * Function overload implementation
  *
  * Takes signatures and functions as arguments, like this:
@@ -62,16 +69,16 @@ export default function overload(...args: Array<*>): Function {
             longestSignature = signature;
         }
 
-        ifsArray[i] = `
+        ifsArray[i] = compress(`
 if (hashKey === '${hashKey}') {
     return fns[${String(i)}].call(this, ${serializeSignature(signature)});
-}`;
+}`);
     }
 
     const ifs = ifsArray.join(' else ');
 
     const serializedSignature = serializeSignature(longestSignature);
-    const code = `
+    const code = compress(`
 return function overloadedFn(${serializedSignature}) {
     var hashKey = '';
     var len = arguments.length;
@@ -94,7 +101,7 @@ return function overloadedFn(${serializedSignature}) {
     }
     ${pairs.length > 0 ? '}' : ''}
     return defaultFn.apply(this, args);
-}`;
+}`);
 
     const superFunc = new Function('getType, fns, defaultFn', code);
 
