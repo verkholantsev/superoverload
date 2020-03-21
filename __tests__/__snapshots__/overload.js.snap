@@ -2,56 +2,60 @@
 
 exports[`overload() called with even number of arguments should return function, which result of toString() matches snapshot 1`] = `
 "function overloadedFn(_0) {
-    var hashKey = '';
-    var len = arguments.length;
-    var args = new Array(len);
-    for (var i = 0; i < len; i++) {
-        args[i] = arguments[i];
+  var hashKey = '';
+  var len = arguments.length;
+  var args = new Array(len);
+  for (var i = 0; i < len; i++) {
+    args[i] = arguments[i];
+  }
+  for (var i = 0; i < len; i++) {
+    hashKey += getType(args[i]);
+    if (i !== len - 1) {
+      hashKey += ', ';
     }
-    for (var i = 0; i < len; i++) {
-        hashKey += getType(args[i]);
-        if (i !== len - 1) {
-            hashKey += ', ';
-        }
+  }
+  if (hashKey === 'string') {
+    return fns[0].call(this, _0);
+  } else if (hashKey === 'array') {
+    return fns[1].call(this, _0);
+  } else {
+    if (!defaultFn) {
+      throw new Error(
+        'No matching function for call with signature \\"' + hashKey + '\\"',
+      );
     }
-    if (hashKey === 'string') {
-        return fns[0].call(this, _0);
-    } else if (hashKey === 'array') {
-        return fns[1].call(this, _0);
-    } else {
-        if (!defaultFn) {
-            throw new Error('No matching function for call with signature \\"' + hashKey + '\\"');
-        }
-    }
-    return defaultFn.apply(this, args);
+  }
+  return defaultFn.apply(this, args);
 }
 "
 `;
 
 exports[`overload() called with odd number of arguments should return function, which result of toString() matches snapshot 1`] = `
 "function overloadedFn(_0) {
-    var hashKey = '';
-    var len = arguments.length;
-    var args = new Array(len);
-    for (var i = 0; i < len; i++) {
-        args[i] = arguments[i];
+  var hashKey = '';
+  var len = arguments.length;
+  var args = new Array(len);
+  for (var i = 0; i < len; i++) {
+    args[i] = arguments[i];
+  }
+  for (var i = 0; i < len; i++) {
+    hashKey += getType(args[i]);
+    if (i !== len - 1) {
+      hashKey += ', ';
     }
-    for (var i = 0; i < len; i++) {
-        hashKey += getType(args[i]);
-        if (i !== len - 1) {
-            hashKey += ', ';
-        }
+  }
+  if (hashKey === 'string') {
+    return fns[0].call(this, _0);
+  } else if (hashKey === 'number') {
+    return fns[1].call(this, _0);
+  } else {
+    if (!defaultFn) {
+      throw new Error(
+        'No matching function for call with signature \\"' + hashKey + '\\"',
+      );
     }
-    if (hashKey === 'string') {
-        return fns[0].call(this, _0);
-    } else if (hashKey === 'number') {
-        return fns[1].call(this, _0);
-    } else {
-        if (!defaultFn) {
-            throw new Error('No matching function for call with signature \\"' + hashKey + '\\"');
-        }
-    }
-    return defaultFn.apply(this, args);
+  }
+  return defaultFn.apply(this, args);
 }
 "
 `;
