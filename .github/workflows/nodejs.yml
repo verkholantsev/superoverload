@@ -37,5 +37,8 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
 
+    - name: Check in Bundlephobia
+      uses: carlesnunez/check-my-bundlephobia@v1.0.1
+
       env:
         CI: true
