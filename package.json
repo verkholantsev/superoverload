@@ -1,60 +1,20 @@
 {
-  "name": "superoverload",
-  "version": "1.4.0",
-  "description": "Function overload for JavaScript",
-  "main": "build/index.js",
-  "scripts": {
-    "test": "yarn run build && jest",
-    "benchmark": "yarn run build && node ./benchmark",
-    "build": "rollup -c && prettier build/index.js --write",
-    "format": "prettier --write **/*.{md,json,js} && eslint --fix .",
-    "lint": "eslint ./**/*.js",
-    "flow": "flow .",
-    "pre-commit": "yarn run lint && yarn run flow",
-    "coverage": "jest --coverage",
-    "release": "np"
-  },
-  "keywords": [
-    "function",
-    "overload",
-    "javascript"
-  ],
-  "author": "Aleksey Verkholantsev <poshli.pismo@gmail.com> (https://github.com/verkholantsev)",
-  "contributors": [
-    "escaton (https://github.com/escaton)"
-  ],
+  "name": "superoverload-repo",
+  "version": "1.0.0",
+  "description": "Superoverload Repo",
+  "main": "index.js",
+  "repository": "git@github.com:verkholantsev/superoverload.git",
+  "author": "Aleksei Verkholantcev <poshli.pismo@gmail.com>",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/verkholantsev/superoverload.git"
+  "private": true,
+  "scripts": {
+    "coverage": "yarn workspaces run coverage",
+    "format": "prettier --write \"packages/**/*.{js,json,md}\"",
+    "lint": "yarn workspaces run lint",
+    "pre-commit": "yarn run lint",
+    "test": "yarn run lint && yarn workspaces run test"
   },
-  "devDependencies": {
-    "@babel/core": "^7.9.0",
-    "@babel/plugin-external-helpers": "^7.8.3",
-    "@babel/preset-env": "^7.9.0",
-    "@babel/preset-flow": "^7.9.0",
-    "@babel/register": "^7.9.0",
-    "babel-eslint": "^10.1.0",
-    "benchmark": "^2.1.4",
-    "captain-git-hook": "^2.0.0",
-    "coveralls": "^3.0.11",
-    "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.10.0",
-    "eslint-plugin-flowtype": "^4.6.0",
-    "eslint-plugin-prettier": "^3.1.2",
-    "flow-bin": "^0.121.0",
-    "jest": "^25.1.0",
-    "lodash": "^4.17.15",
-    "np": "^6.2.0",
-    "prettier": "^1.19.1",
-    "rollup": "^2.1.0",
-    "rollup-plugin-babel": "^4.4.0",
-    "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup-plugin-terser": "^5.3.0"
-  },
-  "dependencies": {},
-  "engines": {
-    "node": ">=10"
-  }
+  "workspaces": [
+   "packages/*"
+  ]
 }

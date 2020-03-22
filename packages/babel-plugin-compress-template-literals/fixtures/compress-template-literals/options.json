@@ -1,0 +1,3 @@
+{
+  "plugins": ["compress-template-literals"]
+}

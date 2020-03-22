@@ -23,22 +23,14 @@ jobs:
     - name: Lint files
       run: yarn lint
 
-    - name: Check Flow
-      run: yarn flow
-
     - name: Run tests with coverage
       run: yarn run coverage
-
-    - name: Run build
-      run: yarn run build
 
     - name: Coveralls
       uses: coverallsapp/github-action@master
       with:
+        path-to-lcov: ./packages/superoverload/coverage/lcov.info
         github-token: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Check in Bundlephobia
-      uses: carlesnunez/check-my-bundlephobia@v1.0.1
 
       env:
         CI: true

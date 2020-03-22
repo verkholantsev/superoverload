@@ -156,9 +156,9 @@
         longestSignature = signature;
       }
 
-      ifsArray[i] = "if (hashKey === '"
-        .concat(hashKey, "') {return fns[")
-        .concat(String(i), '].call(this, ')
+      ifsArray[i] = "if(hashKey==='"
+        .concat(hashKey, "') {\n    return fns[")
+        .concat(String(i), '].call(this,')
         .concat(serializeSignature(signature), ');}');
     }
 
@@ -167,16 +167,16 @@
     var code = 'return function overloadedFn('
       .concat(
         serializedSignature,
-        ") {var hashKey = '';var len = arguments.length;var args = new Array(len);for (var i = 0; i < len; i++) {args[i] = arguments[i];}for (var i = 0; i < len; i++) {hashKey += getType(args[i]);if (i !== len - 1) {hashKey += ', ';}}",
+        "){var hashKey='';var len=arguments.length;var args=new Array(len);for(var i=0;i<len;i++){args[i]=arguments[i];}for(var i=0;i<len;i++){hashKey+=getType(args[i]);if(i!==len-1){hashKey+=', ';}}",
       )
       .concat(ifs)
       .concat(
         pairs.length > 0 ? 'else {' : '',
-        "if (!defaultFn) {throw new Error('No matching function for call with signature \"' + hashKey + '\"');}",
+        "if(!defaultFn){throw new Error('No matching function for call with signature \"' + hashKey + '\"');}",
       )
       .concat(
         pairs.length > 0 ? '}' : '',
-        'return defaultFn.apply(this, args);}',
+        'return defaultFn.apply(this,args);}',
       );
     var superFunc = new Function('getType, fns, defaultFn', code); // $FlowFixMe errors with `new Function(...)`
 
