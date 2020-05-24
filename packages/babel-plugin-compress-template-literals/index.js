@@ -10,23 +10,50 @@ function isStringBoundary(char) {
   return char === "'" || char === '"' || char === '`';
 }
 
-function compressString(input) {
+function initMutableExpressionContext() {
+  let isBetweenWords = false;
+  let stringLeftBoundaryChar = null;
+
+  return {
+    setIsBetweenWords(value) {
+      isBetweenWords = value;
+    },
+    isBetweenWords() {
+      return isBetweenWords;
+    },
+    setStringLeftBoundaryChar(value) {
+      stringLeftBoundaryChar = value;
+    },
+    doesCharMatchLeftBoundaryChar(char) {
+      return char === stringLeftBoundaryChar;
+    },
+    isWithinString() {
+      return stringLeftBoundaryChar != null;
+    },
+  };
+}
+
+function compressString(input, mutableContext) {
   const output = [];
   let i = 0;
-  let isBetweenWords = false;
-  let isInString = false;
+  // let isBetweenWords = false;
+  // let stringLeftBoundaryChar = null;
   while (i < input.length) {
     const char = input[i];
     const previousChar = output[output.length - 1];
 
     if (isStringBoundary(char) && previousChar !== '\\') {
-      isInString = !isInString;
+      if (!mutableContext.isWithinString()) {
+        mutableContext.setStringLeftBoundaryChar(char);
+      } else if (mutableContext.doesCharMatchLeftBoundaryChar(char)) {
+        mutableContext.setStringLeftBoundaryChar(null);
+      }
       output.push(char);
-    } else if (isInString) {
+    } else if (mutableContext.isWithinString()) {
       output.push(char);
     } else if (isNonWhitespace(char)) {
       if (
-        isBetweenWords &&
+        mutableContext.isBetweenWords() &&
         output.length > 0 &&
         /\w/.test(previousChar) &&
         /\w/.test(char)
@@ -34,9 +61,9 @@ function compressString(input) {
         output.push(' ');
       }
       output.push(char);
-      isBetweenWords = false;
+      mutableContext.setIsBetweenWords(false);
     } else if (isWhitespace(char)) {
-      isBetweenWords = true;
+      mutableContext.setIsBetweenWords(true);
     }
 
     i++;
@@ -57,13 +84,15 @@ module.exports = function (babel) {
       },
       CallExpression(path) {
         if (path.node.callee.name === 'compress') {
+          const mutableContext = initMutableExpressionContext();
           path.node.arguments[0].quasis.forEach(templateElement => {
             templateElement.value.raw = compressString(
               templateElement.value.raw,
+              mutableContext,
             );
-            templateElement.value.cooked = compressString(
-              templateElement.value.cooked,
-            );
+            // templateElement.value.cooked = compressString(
+            //   templateElement.value.cooked,
+            // );
           });
           path.replaceWith(
             t.templateLiteral(

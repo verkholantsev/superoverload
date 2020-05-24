@@ -5,15 +5,18 @@ exports[`overload() called with even number of arguments should return function,
   var hashKey = '';
   var len = arguments.length;
   var args = new Array(len);
+
   for (var i = 0; i < len; i++) {
     args[i] = arguments[i];
   }
+
   for (var i = 0; i < len; i++) {
     hashKey += getType(args[i]);
     if (i !== len - 1) {
       hashKey += ', ';
     }
   }
+
   if (hashKey === 'string') {
     return fns[0].call(this, _0);
   } else if (hashKey === 'array') {
@@ -35,15 +38,18 @@ exports[`overload() called with odd number of arguments should return function, 
   var hashKey = '';
   var len = arguments.length;
   var args = new Array(len);
+
   for (var i = 0; i < len; i++) {
     args[i] = arguments[i];
   }
+
   for (var i = 0; i < len; i++) {
     hashKey += getType(args[i]);
     if (i !== len - 1) {
       hashKey += ', ';
     }
   }
+
   if (hashKey === 'string') {
     return fns[0].call(this, _0);
   } else if (hashKey === 'number') {

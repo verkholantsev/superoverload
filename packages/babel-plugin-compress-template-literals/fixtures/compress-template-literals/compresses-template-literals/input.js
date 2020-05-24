@@ -16,3 +16,8 @@ compress(`
     console.log('nope');
   }
 `)
+
+compress(`
+if (hashKey === '${hashKey}') {
+    return fns[${String(i)}].call(this, ${serializeSignature(signature)});
+}`)
