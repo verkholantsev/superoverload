@@ -1,6 +1,6 @@
 {
   "name": "superoverload",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Function overload for JavaScript",
   "main": "build/index.js",
   "scripts": {
@@ -29,13 +29,13 @@
     "url": "git://github.com/verkholantsev/superoverload.git"
   },
   "devDependencies": {
-    "babel-plugin-compress-template-literals": "^1.0.0",
     "@babel/core": "^7.9.0",
     "@babel/plugin-external-helpers": "^7.8.3",
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-flow": "^7.9.0",
     "@babel/register": "^7.9.0",
     "babel-eslint": "^10.1.0",
+    "babel-plugin-compress-template-literals": "^1.0.0",
     "benchmark": "^2.1.4",
     "captain-git-hook": "^2.0.0",
     "coveralls": "^3.0.11",
