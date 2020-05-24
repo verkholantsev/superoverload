@@ -36,8 +36,6 @@ function initMutableExpressionContext() {
 function compressString(input, mutableContext) {
   const output = [];
   let i = 0;
-  // let isBetweenWords = false;
-  // let stringLeftBoundaryChar = null;
   while (i < input.length) {
     const char = input[i];
     const previousChar = output[output.length - 1];
@@ -84,15 +82,18 @@ module.exports = function (babel) {
       },
       CallExpression(path) {
         if (path.node.callee.name === 'compress') {
-          const mutableContext = initMutableExpressionContext();
+          const mutableContextForCooked = initMutableExpressionContext();
+          const mutableContextForRaw = initMutableExpressionContext();
+
           path.node.arguments[0].quasis.forEach(templateElement => {
             templateElement.value.raw = compressString(
               templateElement.value.raw,
-              mutableContext,
+              mutableContextForRaw,
             );
-            // templateElement.value.cooked = compressString(
-            //   templateElement.value.cooked,
-            // );
+            templateElement.value.cooked = compressString(
+              templateElement.value.cooked,
+              mutableContextForCooked,
+            );
           });
           path.replaceWith(
             t.templateLiteral(

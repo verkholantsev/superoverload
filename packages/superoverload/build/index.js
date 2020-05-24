@@ -156,27 +156,27 @@
         longestSignature = signature;
       }
 
-      ifsArray[i] = "\nif (hashKey === '"
-        .concat(hashKey, "') {\n    return fns[")
-        .concat(String(i), '].call(this, ')
-        .concat(serializeSignature(signature), ');\n}');
+      ifsArray[i] = "if(hashKey==='"
+        .concat(hashKey, "'){return fns[")
+        .concat(String(i), '].call(this,')
+        .concat(serializeSignature(signature), ');}');
     }
 
     var ifs = ifsArray.join(' else ');
     var serializedSignature = serializeSignature(longestSignature);
-    var code = '\nreturn function overloadedFn('
+    var code = 'return function overloadedFn('
       .concat(
         serializedSignature,
-        ") {\n    var hashKey = '';\n    var len = arguments.length;\n    var args = new Array(len);\n\n    for (var i = 0; i < len; i++) {\n        args[i] = arguments[i];\n    }\n\n    for (var i = 0; i < len; i++) {\n        hashKey += getType(args[i]);\n        if (i !== len - 1) {\n            hashKey += ', ';\n        }\n    }\n    ",
+        "){var hashKey='';var len=arguments.length;var args=new Array(len);for(var i=0;i<len;i++){args[i]=arguments[i];}for(var i=0;i<len;i++){hashKey+=getType(args[i]);if(i!==len-1){hashKey+=', ';}}",
       )
-      .concat(ifs, '\n    ')
+      .concat(ifs)
       .concat(
         pairs.length > 0 ? 'else {' : '',
-        "\n    if (!defaultFn) {\n        throw new Error('No matching function for call with signature \"' + hashKey + '\"');\n    }\n    ",
+        "if(!defaultFn){throw new Error('No matching function for call with signature \"'+hashKey+'\"');}",
       )
       .concat(
         pairs.length > 0 ? '}' : '',
-        '\n    return defaultFn.apply(this, args);\n}',
+        'return defaultFn.apply(this,args);}',
       );
     var superFunc = new Function('getType, fns, defaultFn', code); // $FlowFixMe errors with `new Function(...)`
 
