@@ -46,7 +46,7 @@
     "flow-bin": "^0.121.0",
     "jest": "^25.1.0",
     "lodash": "^4.17.15",
-    "np": "^6.2.0",
+    "np": "^6.3.1",
     "prettier": "^2.0.2",
     "rollup": "^2.1.0",
     "rollup-plugin-babel": "^4.4.0",
